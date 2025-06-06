@@ -1,16 +1,16 @@
-version: '3.8'
 services:
   mongodb:
-    image: mongo:7
+    image: mongodb/mongodb-community-server:latest
     container_name: mongodb
-    restart: unless-stopped
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=u8672376
+      - MONGODB_INITDB_ROOT_PASSWORD=p9745397
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - mongo-data:/data/db
-      - ./mongo-init:/docker-entrypoint-initdb.d
+      - mongodb_data:/data/db
+      - ./mongo-init/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
 volumes:
-  mongo-data:
+  mongodb_data:
+    
