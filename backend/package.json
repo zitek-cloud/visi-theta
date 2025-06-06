@@ -1,0 +1,42 @@
+{
+  "name": "visi-theta-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_CONFIG_SHOW_ALL=true NODE_ENV=development ts-node src/index.ts",
+    "stag": "cross-env NODE_ENV=staging ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.4",
+  "devDependencies": {
+    "@types/config": "^3.3.5",
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.30",
+    "cross-env": "^7.0.3",
+    "pino-pretty": "^13.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@sentry/node": "^9.27.0",
+    "@sentry/profiling-node": "^9.27.0",
+    "config": "^4.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1",
+    "pino": "^9.7.0"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@sentry-internal/node-cpu-profiler"
+    ],
+    "onlyBuiltDependencies": [
+      "@sentry-internal/node-cpu-profiler"
+    ]
+  }
+}

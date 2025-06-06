@@ -44,4 +44,4 @@ Thumbs.db
 *.swo
 .idea/
 
-db/
+local.json

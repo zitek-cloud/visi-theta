@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  mongo1:
+    image: mongo:7.0
+    container_name: mongo1
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo1_data:/data/db
+      - ./keyfile:/etc/mongo-keyfile:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    command: >
+      mongod --replSet rs0
+             --bind_ip_all
+             --auth
+             --keyFile /etc/mongo-keyfile/keyfile
+
+  mongo2:
+    image: mongo:7.0
+    container_name: mongo2
+    ports:
+      - 27018:27017
+    volumes:
+      - mongo2_data:/data/db
+      - ./keyfile:/etc/mongo-keyfile:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    command: >
+      mongod --replSet rs0
+             --bind_ip_all
+             --auth
+             --keyFile /etc/mongo-keyfile/keyfile
+
+  mongo3:
+    image: mongo:7.0
+    container_name: mongo3
+    ports:
+      - 27019:27017
+    volumes:
+      - mongo3_data:/data/db
+      - ./keyfile:/etc/mongo-keyfile:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    command: >
+      mongod --replSet rs0
+             --bind_ip_all
+             --auth
+             --keyFile /etc/mongo-keyfile/keyfile
+
+  mongo-init-replica:
+    image: mongo:7.0
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    volumes:
+      - ./keyfile:/etc/mongo-keyfile:ro
+    entrypoint: >
+      bash -c '
+        sleep 10;
+        echo "Initiating replica set...";
+        mongosh --host mongo1:27017 -u root -p example --authenticationDatabase admin <<EOF
+          rs.initiate({
+            _id: "rs0",
+            members: [
+              { _id: 0, host: "mongo1:27017" },
+              { _id: 1, host: "mongo2:27017" },
+              { _id: 2, host: "mongo3:27017" }
+            ]
+          });
+        EOF
+      '
+
+volumes:
+  mongo1_data:
+  mongo2_data:
+  mongo3_data:

@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "database": {
+            "username": "VISI_DATABASE_USERNAME",
+            "password": "VISI_DATABASE_PASSWORD"
+        }
+    }
+}

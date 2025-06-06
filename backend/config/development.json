@@ -1,0 +1,8 @@
+{
+    "configuration": "development",
+    "settings": {
+        "database": {
+            "database": "visi_db_dev"
+        }
+    }
+}

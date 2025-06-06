@@ -1,0 +1,27 @@
+{
+    "name": "visi-theta",
+    "description": "VISI THETA Backend Configuration",
+    "configuration": "default",
+    "version": "1.0.0",
+    "local": "No",
+    "settings": {
+        "logger": {
+            "level": "info",
+            "transport": {
+                "target": "pino-pretty",
+                "options": {
+                    "colorize": true,
+                    "translateTime": "SYS:yyyy-mm-dd HH:MM:ss",
+                    "ignore": "pid,hostname"
+                }
+            }
+        },
+        "database": {
+            "host": "localhost",
+            "port": 27017,
+            "database": "visi_db",
+            "username": "visi_user",
+            "password": "visi_password"
+        }
+    }
+}
